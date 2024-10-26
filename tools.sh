@@ -6,7 +6,7 @@ sudo ufw allow ssh
 
 install an SFTP client:
 sudo adduser sftpuser
-sudo gedit /etc/ssh/sshd_config (you can do nano or gedit)
+sudo gedit /etc/ssh/sshd_config #you can do nano or gedit
 #Override default SFTP configuration
 Match User sftpuser
 	ForceCommand internal-sftp
