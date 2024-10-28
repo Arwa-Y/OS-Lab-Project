@@ -15,6 +15,13 @@ echo "Search Date: $search_date" >> $results_file
 echo "Number of files larger than 1M: $Number_Of_Files" >> $results_file
 
 #Email the system administrator a message about the contents of the bigfile
-if[ -s $Big_file]; 
-then
-	mail -s "Larger than 1M File Report" "$system_administrator" << 
+if [ -s $Big_file ]; then
+	mail -s "Larger than 1M File Report" "$system_administrator" <<EOF
+	Dear system administrator,
+	No. of files larger than 1M: $Number_Of_Files 
+	For more details check bigfile.
+	Best regards,
+	system
+	EOF
+fi
+
