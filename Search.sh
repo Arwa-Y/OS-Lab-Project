@@ -17,6 +17,7 @@ echo "Number of files larger than 1M: $Number_Of_Files" >> "$Big_file"
 # Email the system administrator a message about the contents of the bigfile
 if [ "$Number_Of_Files" -gt 0 ]; then
      echo -e "Subject: Larger than 1M Files Report\n\n Dear system administrator,
+Current date: $search_date ,
 No. of files larger than 1M: $Number_Of_Files
 For more details check bigfile.
 Best regards,
