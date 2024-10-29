@@ -7,7 +7,7 @@ server="192.168.10.30"
 #pw=password
 
 count=0
-max_attempts=2
+max_attempts=3
 if [[ $# -ne 2 ]]
 then 
 	echo "Format: $0 username password"
@@ -19,7 +19,7 @@ pw=$2
 #echo "$1, $2"
 
 
-while (( count < max_attempts ))
+while (( count < (($max_attempts-1)) ))
 do
 if sshpass -p "$pw" ssh "$un@$server" "exit"
 then
@@ -29,7 +29,12 @@ else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" #>> "$log1"
 	echo "Attempt #$((count+1))"
-	((count++))	
+	((count++))
+	
+	echo "Please enter username and password again: "
+	read -p "Username: " un
+	read -p "Password: " pw
+	
 fi
 done
 
