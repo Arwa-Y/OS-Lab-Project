@@ -2,7 +2,7 @@
 
 Big_file="bigfile"
 search_date=$(date)
-system_administrator="aa2102872@qu.edu.qa"
+email="aa2102872@qu.edu.qa"
 
 
 #find the files in your account that are larger than 1M
@@ -17,9 +17,9 @@ echo "Number of files larger than 1M: $Number_Of_Files" >> "$Big_file"
 
 #Email the system administrator a message about the contents of the bigfile
 if [ "$Number_Of_Files" -gt 0 ]; then
-	mail -s "Larger than 1M Files Report" "$system_administrator" <<EOF
+	mail -s "Larger than 1M Files Report" "$email" <<EOF
 	Dear system administrator,
-	No. of files larger than 1M as of $search_date :
+	No. of files larger than 1M:
 	$(cat "Number_Of_Files")
 	For more details check bigfile.
 	Best regards,
