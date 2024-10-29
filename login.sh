@@ -15,6 +15,14 @@ un=$1
 pw=$2
 #echo "$1, $2"
 
-sshpass -p "$pw" ssh "$un@$server" "who; exit"
+
+
+if sshpass -p "$pw" ssh "$un@$server" "exit"
+then
+	echo "successful login"
+else
+	timestamps=$(date)
+	echo "Invalid login for user: $un, at: $timestamps"	
+fi
 
 echo "login Shell Script Done !"
