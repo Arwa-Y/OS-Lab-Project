@@ -6,4 +6,6 @@ sudo apt install openssh-server
 sudo systemctl start sshd
 
 sudo apt install net-tools
+sudo apt install traceroute
+
 
