@@ -2,7 +2,7 @@
 
 exec > >(tee -a perm_change.log) 2>&1
 
-files=$(find /home -perm 777 ! -xtype l 2>/dev/null)
+files=$(find /home \( -path /home/*/snap -prune \) -o -perm 777 ! -xtype l 2>/dev/null)
 
 echo "Files with the permission 777: "
 
