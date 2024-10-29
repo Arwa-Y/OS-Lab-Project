@@ -22,3 +22,36 @@ sudo chmod 755 /sftp
 sudo chown sftpuser:sftpuser /sftp/sftpuser
 sudo systemctl restart ssh
 sftp sftpuser@10.0.2.15
+
+msmtp:
+sudo apt-get install msmtp msmtp-mta mailutils
+sudo nano /etc/msmtprc
+
+# set default values for all following accounts
+defaults
+
+# use the mail submission port 587 instead of the SMTP port 25.
+port 587
+
+# Always use TLS
+tls on
+
+# set a list of trusted CAs for TLS. the default is to use system settings,
+# but you can select your own file
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+
+# The SMTP server of your Outlook
+account outlook
+host smtp.office365.com
+from aa2102872@qu.edu.qa
+auth on 
+user 12345
+
+# Set default account to outlook 
+account default: outlook
+
+# Map local users to mail addresses
+aliases /etc/aliases
+
+sudo apt-get install bsd-mailx
+
