@@ -10,7 +10,7 @@ echo "$files"
 
 for file in $files
 do
-chmod 700 "$file" 2>/dev/null
+chmod 700 "$file" 2>/dev/null || "chmod fail for: $file"
 done
 
 
