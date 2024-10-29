@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec > perm_change.log 2>&1
+exec > >(tee -a perm_change.log) 2>&1
 
 files=$(find / -perm 777 ! -xtype l)
 
