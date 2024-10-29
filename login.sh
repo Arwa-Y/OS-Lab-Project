@@ -15,7 +15,5 @@ un=$1
 pw=$2
 #echo "$1, $2"
 
-ssh_command=sshpass -p "$pw" ssh "$un@$server"
-echo "$ssh_command"
-"$ssh_command""exit"
+sshpass -p "$pw" ssh "$un@$server" "exit"
 echo "login Shell Script Done !"
