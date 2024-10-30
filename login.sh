@@ -31,6 +31,9 @@ then
 	sshpass -p "$pw" sftp "$un@$server" << EOF
 	put "$log2"
 	EOF
+	
+	sleep 30
+	pkill -KILL
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
