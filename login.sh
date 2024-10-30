@@ -36,14 +36,10 @@ EOF
 	
 
 	timeout 30 sshpass -p "$pw" sftp "$un@$server"	
-		#sleep 30
-	
-	exit 0
-	echo "Logged Out"
 
-	
-	#wait
-	#exit 0
+	echo "Logged Out"
+	exit 0
+
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
