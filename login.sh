@@ -3,9 +3,6 @@
 log1="invalid_attempts.log"
 log2="client_timestamp_invalid_attempts.log"
 server="192.168.10.30"
-#un=client
-#pw=password
-
 count=0
 max_attempts=3
 if [[ $# -ne 2 ]]
@@ -16,7 +13,7 @@ fi
 
 un=$1
 pw=$2
-#echo "$1, $2"
+
 
 
 while (( count < max_attempts ))
@@ -33,11 +30,20 @@ then
 	sshpass -p "$pw" sftp "$un@$server" << EOF > /dev/null 2>&1
 put "$log2" /logs
 EOF
+
+	echo "Log file copied to server."
 	
-	sshpass -p "$pw" sftp "$un@$server"
-	sleep 30
-	echo "Logged Out"
+	
+
+	timeout 30 sshpass -p "$pw" sftp "$un@$server"	
+		#sleep 30
+	
 	exit 0
+	echo "Logged Out"
+
+	
+	#wait
+	#exit 0
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
