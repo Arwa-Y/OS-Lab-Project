@@ -31,15 +31,28 @@ else
 	echo "Invalid login for user: $un, at: $timestamps" #>> "$log1"
 	echo "Attempt #$((count+1)) Done !"
 
+	((count++))
+	
+	if  ((count == max_attempts))
+	then
+		echo "Unauthorized user !"
+	fi
 	
 
 	
-	if  ((count < max_attempts-1))
-	then
+	##if  ((count < max_attempts-1))
+	##then
 	echo "Please enter username and password again: "
 	read -p "Username: " un
 	read -p "Password: " pw
-	fi
+	##fi
+	
+
+	#if count=3
+	#then
+	#echo "Unauthorized user !"
+	#fi
+
 	
 fi
 done
