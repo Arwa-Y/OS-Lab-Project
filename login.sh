@@ -36,23 +36,13 @@ else
 	if  ((count == max_attempts))
 	then
 		echo "Unauthorized user !"
+		break
 	fi
 	
 
-	
-	##if  ((count < max_attempts-1))
-	##then
 	echo "Please enter username and password again: "
 	read -p "Username: " un
 	read -p "Password: " pw
-	##fi
-	
-
-	#if count=3
-	#then
-	#echo "Unauthorized user !"
-	#fi
-
 	
 fi
 done
