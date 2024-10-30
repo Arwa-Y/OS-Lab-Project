@@ -5,8 +5,8 @@ server_user="client2"
 server_IP="192.168.10.15"
 server_path="home/client2"
 
+
 info(){
-echo "current directory: $(pwd) \n" >> "$saved_info"
 echo "Log Date: $(date) \n" >> "$saved_info"
 
 # Process tree of all currently running processes
@@ -30,6 +30,8 @@ echo -e "\n The top 5 resource-consuming processes:" >> "$saved_info"
 ps -eo pid,ppid,cmd,%cpu,%mem --sort=-%cpu | head -n 6 >> "$saved_info"
 }
 
+while true; do
 info
-
 scp "$saved_info" "${server_user}@${server_IP}:/${server_path}"
+sleep 3600
+done
