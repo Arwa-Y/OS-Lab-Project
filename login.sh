@@ -28,10 +28,13 @@ then
 	#exit 0
 	
 	sshpass -p "$pw" sftp "$un@$server"
-	put $log1 $log2
+	put $log2
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
+	
+	cat "$log1" >> "$log2"
+	
 	echo "Attempt #$((count+1)) Done !"
 
 	((count++))
