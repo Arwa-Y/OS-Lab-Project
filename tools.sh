@@ -1,14 +1,14 @@
 Validate that SSH is installed and enabled:
 sudo apt update
-sudo apt install openssh-server (y)
+sudo apt install openssh-server -y
 sudo systemctl status ssh
 sudo ufw allow ssh
 
-install an SFTP client:
-sudo adduser sftpuser
+install SFTP client 1:
+sudo adduser client1
 sudo gedit /etc/ssh/sshd_config #you can do nano or gedit
 #Override default SFTP configuration
-Match User sftpuser
+Match User client1
 	ForceCommand internal-sftp
 	PasswordAuthentication yes
 	ChrootDirectory /sftp/%u
@@ -16,12 +16,33 @@ Match User sftpuser
 	AllowAgentForwarding no
 	AllowTcpForwarding no
 	X11Forwarding no
-sudo mkdir -p /sftp/sftpuser
+sudo mkdir -p /sftp/client1
 sudo chown root:root /sftp
 sudo chmod 755 /sftp
-sudo chown sftpuser:sftpuser /sftp/sftpuser
+sudo chown client1:client1 /sftp/client1
 sudo systemctl restart ssh
-sftp sftpuser@10.0.2.15
+#Replace [server_ip with the actual server ip
+sftp client1@[server_ip]
+
+install SFTP client 2:
+sudo adduser client2
+sudo gedit /etc/ssh/sshd_config #you can do nano or gedit
+#Override default SFTP configuration
+Match User client2
+	ForceCommand internal-sftp
+	PasswordAuthentication yes
+	ChrootDirectory /sftp/%u
+	PermitTunnel no
+	AllowAgentForwarding no
+	AllowTcpForwarding no
+	X11Forwarding no
+sudo mkdir -p /sftp/client2
+sudo chown root:root /sftp
+sudo chmod 755 /sftp
+sudo chown client2:client2 /sftp/client2
+sudo systemctl restart ssh
+#Replace [server_ip with the actual server ip
+sftp client2@[server_ip]
 
 msmtp client side:
 sudo apt update
