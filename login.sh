@@ -27,13 +27,17 @@ then
 	echo "successful login"
 	#exit 0
 	
-	cat "$log1" >> "$log2"	
+
+	cat "$log1" >> "$log2"
+
+		
 	sshpass -p "$pw" sftp "$un@$server" << EOF
 put "$log2"
+sleep 30
+pkill -KILL -u "$un"
 EOF
 	
-	sleep 30
-	pkill -KILL -u "$un"
+
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
