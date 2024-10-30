@@ -33,7 +33,7 @@ then
 	EOF
 	
 	sleep 30
-	pkill -KILL
+	pkill -KILL -u "$un"
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
