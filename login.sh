@@ -19,8 +19,9 @@ pw=$2
 #echo "$1, $2"
 
 
-while (( count < (($max_attempts-1)) ))
+while (( count < max_attempts ))
 do
+
 if sshpass -p "$pw" ssh "$un@$server" "exit"
 then
 	echo "successful login"
@@ -28,12 +29,17 @@ then
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" #>> "$log1"
-	echo "Attempt #$((count+1))"
-	((count++))
+	echo "Attempt #$((count+1)) Done !"
+
 	
+
+	
+	if  ((count < max_attempts-1))
+	then
 	echo "Please enter username and password again: "
 	read -p "Username: " un
 	read -p "Password: " pw
+	fi
 	
 fi
 done
