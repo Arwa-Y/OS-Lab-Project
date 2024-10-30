@@ -24,21 +24,18 @@ do
 
 if sshpass -p "$pw" ssh "$un@$server" "true"
 then
-	echo "successful login"
-	#exit 0
+	echo "Successful Login !"
 	
 
 	cat "$log1" >> "$log2"
 
 		
-	sshpass -p "$pw" sftp "$un@$server" << EOF
-put "$log2"
-
-
+	sshpass -p "$pw" sftp "$un@$server" << EOF > /dev/null 2>&1
+put "$log2" /logs
 EOF
 	
+	sshpass -p "$pw" sftp "$un@$server"
 	sleep 30
-	#sshpass -p "$pw" ssh "$un@$server" "exit"
 	echo "Logged Out"
 	exit 0
 else
