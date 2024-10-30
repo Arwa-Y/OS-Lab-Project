@@ -22,7 +22,7 @@ pw=$2
 while (( count < max_attempts ))
 do
 
-if sshpass -p "$pw" ssh "$un@$server" "exit"
+if sshpass -p "$pw" ssh "$un@$server" "true"
 then
 	echo "successful login"
 	#exit 0
@@ -33,11 +33,14 @@ then
 		
 	sshpass -p "$pw" sftp "$un@$server" << EOF
 put "$log2"
-sleep 30
-pkill -KILL -u "$un"
+
+
 EOF
 	
-
+	sleep 30
+	#sshpass -p "$pw" ssh "$un@$server" "exit"
+	echo "Logged Out"
+	exit 0
 else
 	timestamps=$(date)
 	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
@@ -51,7 +54,7 @@ else
 	if  ((count == max_attempts))
 	then
 		echo "Unauthorized user !"
-		break
+		exit 1
 	fi
 	
 
