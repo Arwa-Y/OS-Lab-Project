@@ -29,8 +29,8 @@ then
 	
 	cat "$log1" >> "$log2"	
 	sshpass -p "$pw" sftp "$un@$server" << EOF
-	put "$log2"
-	EOF
+put "$log2"
+EOF
 	
 	sleep 30
 	pkill -KILL -u "$un"
