@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$#" -eq 0 ]
+then
+	echo "Please provide an IP address when running traceroute.sh"
+	exit
+fi
+
 {
 echo "Routing Table"
 route
@@ -18,7 +24,7 @@ traceroute google.com
 echo
 
 echo "Pinging google.com"
-ping -c 1 -W 5 google.com
+ping -c 4 -W 5 google.com
 echo
 
 if traceroute $1 
@@ -27,8 +33,6 @@ then
 else
 	echo "Traceroute to $1 failed"	
 	echo "Rebooting Machine"
-	#sudo reboot
+	sudo reboot
 fi
-
-} | tee network.log -a
-
+} 
