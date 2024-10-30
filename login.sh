@@ -27,7 +27,7 @@ then
 	cat "$log1" >> "$log2"
 
 		
-	sshpass -p "$pw" sftp "$un@$server" << EOF > /dev/null 2>&1
+	sshpass -p "$pw" sftp "$un@$server" << EOF > log_sftp_output.txt 2>&1
 put "$log2" /logs
 EOF
 
