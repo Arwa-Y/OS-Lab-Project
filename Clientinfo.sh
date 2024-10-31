@@ -1,6 +1,6 @@
 #!/bin/bash
 
-saved_info="/home/arwa/process_info.log"
+saved_info="process_info.log"
 server_user="client2"
 server_IP="192.168.10.15"
 server_path="home/client2"
