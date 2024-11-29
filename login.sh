@@ -2,7 +2,7 @@
 
 log1="invalid_attempts.log"
 log2="client_timestamp_invalid_attempts.log"
-server="192.168.10.30"
+server="192.168.1.68"
 count=0
 max_attempts=3
 if [[ $# -ne 2 ]]
@@ -24,11 +24,11 @@ then
 	echo "Successful Login !"
 	
 
-	cat "$log1" >> "$log2"
+	cat /home/daisy/"$log1" >> /home/daisy/"$log2"
 
 		
 	sshpass -p "$pw" sftp "$un@$server" << EOF > log_sftp_output.txt 2>&1
-put "$log2" /logs
+put /home/daisy/"$log2" logs
 EOF
 
 	echo "Log file copied to server."
@@ -42,7 +42,7 @@ EOF
 
 else
 	timestamps=$(date)
-	echo "Invalid login for user: $un, at: $timestamps" >> "$log1"
+	echo "Invalid login for user: $un, at: $timestamps" >> /home/daisy/"$log1"
 	
 
 	
