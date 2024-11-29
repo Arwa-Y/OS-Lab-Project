@@ -14,12 +14,14 @@ Number_Of_Files=$(wc -l < "$Big_file")
 echo "Search Date: $search_date" >> "$Big_file"
 echo "Number of files larger than 1M: $Number_Of_Files" >> "$Big_file"
 
+echo "Email successfully sent to: $email "
+
 # Email the system administrator a message about the contents of the bigfile
 if [ "$Number_Of_Files" -gt 0 ]; then
      echo -e "Subject: Larger than 1M Files Report\n\n Dear system administrator,
 Current date: $search_date ,
 No. of files larger than 1M: $Number_Of_Files
-For more details check bigfile.
+For more details check $Big_file.
 Best regards,
 system" | msmtp "$email"
 fi

@@ -2,9 +2,11 @@
 
 saved_info="process_info.log"
 server_user="client2"
-server_IP="192.168.10.15"
+server_IP="192.168.1.68"
 server_path="home/client2"
 
+
+pw=$1
 
 info(){
 echo "Log Date: $(date) \n" >> "$saved_info"
@@ -32,6 +34,7 @@ ps -eo pid,ppid,cmd,%cpu,%mem --sort=-%cpu | head -n 6 >> "$saved_info"
 
 while true; do
 info
-scp "$saved_info" "${server_user}@${server_IP}:/${server_path}"
+sshpass -p "$pw" scp "$saved_info" "${server_user}@${server_IP}:/${server_path}"
+echo "$saved_info successfully coppied"
 sleep 3600
 done
