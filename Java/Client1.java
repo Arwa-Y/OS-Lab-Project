@@ -83,9 +83,10 @@ public class Client1 {
 		// receiving txt file from server
 
 		String request = "system.sh"; // special request
-
+		System.out.println();
 		System.out.println("Do you want to request system information? (y/n)"); // just for organization purposes
 		String answer = scr.next();
+		System.out.println();
 
 		p.println(request);
 
@@ -144,7 +145,7 @@ public class Client1 {
 
 			} 
 		} else {
-			System.out.println("Request Denied !");
+			System.out.println("Request denied, try again later!");
 		}
 		System.out.println();
 		System.out.println();
