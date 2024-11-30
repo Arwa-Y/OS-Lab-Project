@@ -34,17 +34,16 @@ public class Client1 {
 			e.printStackTrace();
 		}
 
-		//////////////////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////////////////
 
 		String str1 = "Client1";
 
 		Socket s = new Socket("192.168.1.68", 1300);
 
-		PrintStream p = new PrintStream(s.getOutputStream()); //printing to server
+		PrintStream p = new PrintStream(s.getOutputStream()); // printing to server
 
 		///////////////////////////////////////////////////////////////////////////////////
-		p.println(str1); //just a test
-
+		p.println(str1); // just a test
 
 		///////////////////////////////////////////////////////////////
 
@@ -61,11 +60,11 @@ public class Client1 {
 		System.out.println("Please enter password: ");
 		String password = scr.next();
 
-
 		String scriptPath2 = "/home/daisy/login.sh"; // Update the path if necessary
 
 		// Create a ProcessBuilder to execute the shell script
-		ProcessBuilder processBuilder2 = new ProcessBuilder(scriptPath2, username, password); //e.g. login.sh client1 1224
+		ProcessBuilder processBuilder2 = new ProcessBuilder(scriptPath2, username, password); // e.g. login.sh client1
+																								// 1224
 		processBuilder2.inheritIO(); // Inherit IO for console output (optional)
 
 		try {
@@ -82,64 +81,70 @@ public class Client1 {
 
 		//////////////////////////////////////////
 		// receiving txt file from server
-		
-		String request = "system.sh"; //special request
-		
+
+		String request = "system.sh"; // special request
+
 		p.println(request);
-		System.out.println("Do you want to request system information? (y/n)"); //just for organization purposes
+		System.out.println("Do you want to request system information? (y/n)"); // just for organization purposes
 		String answer = scr.next();
 
 		if (answer.equals("y")) {
 
-			File requestedFile = new File("system.txt"); //creating file
+			File requestedFile = new File("system.txt"); // creating file
 
-			InputStream is = s.getInputStream(); //getting chunks of file from server 
+			InputStream is = s.getInputStream(); // getting chunks of file from server
 
-			try (FileOutputStream fos = new FileOutputStream(requestedFile)) {
+			Scanner scr2 = new Scanner(s.getInputStream());
+			boolean yn = scr.hasNextBoolean();
 
-				byte[] buffer = new byte[4096];
+			if (yn) {
+				try (FileOutputStream fos = new FileOutputStream(requestedFile)) {
 
-				int readBytes;
+					byte[] buffer = new byte[4096];
 
-				while ((readBytes = is.read(buffer)) != -1) {
-					fos.write(buffer, 0, readBytes); //writing to the file, overwrites
+					int readBytes;
 
-				}
+					while ((readBytes = is.read(buffer)) != -1) {
+						fos.write(buffer, 0, readBytes); // writing to the file, overwrites
 
-				System.out.println("File Writing Done....... " + requestedFile.getName()); //checking
-
-			}
-
-			try (BufferedReader br = new BufferedReader(new FileReader(requestedFile))) {
-
-				String systemInfo; //line form file
-				System.out.println(requestedFile.getName() + "'s Content: ");
-
-				System.out.println("Display Info? (y)"); //just for organization purposes
-				String continueY = scr.next();
-
-				int lineCount = 0;
-				while ((systemInfo = br.readLine()) != null && continueY.equals("y")) {
-
-					lineCount++;
-					System.out.println();
-					System.out.println(systemInfo); //printing the line
-
-					if (lineCount == 250) { //after reading and displaying 250 lines ask again
-						System.out.println("Continue? (y)"); //for organization purposes
-						continueY = scr.next();
-						lineCount = 0; //restart count
 					}
+
+					System.out.println("File Writing Done....... " + requestedFile.getName()); // checking
+
 				}
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
+
+				try (BufferedReader br = new BufferedReader(new FileReader(requestedFile))) {
+
+					String systemInfo; // line form file
+					System.out.println(requestedFile.getName() + "'s Content: ");
+
+					System.out.println("Display Info? (y)"); // just for organization purposes
+					String continueY = scr.next();
+
+					int lineCount = 0;
+					while ((systemInfo = br.readLine()) != null && continueY.equals("y")) {
+
+						lineCount++;
+						System.out.println();
+						System.out.println(systemInfo); // printing the line
+
+						if (lineCount == 250) { // after reading and displaying 250 lines ask again
+							System.out.println("Continue? (y)"); // for organization purposes
+							continueY = scr.next();
+							lineCount = 0; // restart count
+						}
+					}
+				} catch (IOException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		}
-
 		System.out.println();
-		System.out.println("End of code, thank you.");
-		
+		System.out.println();
 		s.close();
+
+		System.out.println("End of code, thank you.");
+
 	}
 
 }
