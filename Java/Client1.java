@@ -34,19 +34,16 @@ public class Client1 {
 			e.printStackTrace();
 		}
 
-//////////////////////////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////////////////		
 
 		String str1 = "Client1";
 
-		String request = "system.sh";
-
 		Socket s = new Socket("192.168.1.68", 1300);
 
-		PrintStream p = new PrintStream(s.getOutputStream());
+		PrintStream p = new PrintStream(s.getOutputStream()); //printing to server
 
 		///////////////////////////////////////////////////////////////////////////////////
-		// receiving txt file from server
-		p.println(str1);
+		p.println(str1); //just a test
 
 
 		///////////////////////////////////////////////////////////////
@@ -56,7 +53,6 @@ public class Client1 {
 		System.out.println("Starting login.....");
 		System.out.println();
 
-		// login.sh
 		Scanner scr = new Scanner(System.in);
 
 		System.out.println("Please enter username: ");
@@ -65,12 +61,11 @@ public class Client1 {
 		System.out.println("Please enter password: ");
 		String password = scr.next();
 
-//		String full=username +" "+ password;
 
 		String scriptPath2 = "/home/daisy/login.sh"; // Update the path if necessary
 
 		// Create a ProcessBuilder to execute the shell script
-		ProcessBuilder processBuilder2 = new ProcessBuilder(scriptPath2, username, password);
+		ProcessBuilder processBuilder2 = new ProcessBuilder(scriptPath2, username, password); //e.g. login.sh client1 1224
 		processBuilder2.inheritIO(); // Inherit IO for console output (optional)
 
 		try {
@@ -86,7 +81,9 @@ public class Client1 {
 		}
 
 		//////////////////////////////////////////
-		//getting file from server
+		// receiving txt file from server
+		
+		String request = "system.sh"; //special request
 		
 		p.println(request);
 		System.out.println("Do you wnat to request system information? (y/n)");
@@ -94,9 +91,9 @@ public class Client1 {
 
 		if (answer.equals("y")) {
 
-			File requestedFile = new File("system.txt");
+			File requestedFile = new File("system.txt"); //creating file
 
-			InputStream is = s.getInputStream();
+			InputStream is = s.getInputStream(); //getting chunks of file from server 
 
 			try (FileOutputStream fos = new FileOutputStream(requestedFile)) {
 
@@ -105,20 +102,20 @@ public class Client1 {
 				int readBytes;
 
 				while ((readBytes = is.read(buffer)) != -1) {
-					fos.write(buffer, 0, readBytes);
+					fos.write(buffer, 0, readBytes); //writing to the file, overwrites
 
 				}
 
-				System.out.println("File Done....... " + requestedFile.getName());
+				System.out.println("File Writing Done....... " + requestedFile.getName()); //checking
 
 			}
 
 			try (BufferedReader br = new BufferedReader(new FileReader(requestedFile))) {
 
-				String systemInfo;
+				String systemInfo; //line form file
 				System.out.println(requestedFile.getName() + "'s Content: ");
 
-				System.out.println("Display Info? (y)");
+				System.out.println("Display Info? (y)"); //just for organization purposes
 				String continueY = scr.next();
 
 				int lineCount = 0;
@@ -126,12 +123,12 @@ public class Client1 {
 
 					lineCount++;
 					System.out.println();
-					System.out.println(systemInfo);
+					System.out.println(systemInfo); //printing the line
 
-					if (lineCount == 250) { //after reading and displaying 250 lines
-						System.out.println("Continue? (y)");
+					if (lineCount == 250) { //after reading and displaying 250 lines ask again
+						System.out.println("Continue? (y)"); //for organization purposes
 						continueY = scr.next();
-						lineCount = 0;
+						lineCount = 0; //restart count
 					}
 				}
 			} catch (IOException e) {
@@ -139,10 +136,9 @@ public class Client1 {
 			}
 		}
 
-		/////////////////////////////////////////////////////////////////
 		System.out.println();
-		System.out.println();
-
+		System.out.println("End of code, thank you.");
+		
 		s.close();
 	}
 
