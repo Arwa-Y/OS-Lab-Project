@@ -84,20 +84,24 @@ public class Client1 {
 
 		String request = "system.sh"; // special request
 
-		p.println(request);
 		System.out.println("Do you want to request system information? (y/n)"); // just for organization purposes
 		String answer = scr.next();
 
-		if (answer.equals("y")) {
+		p.println(request);
 
-			File requestedFile = new File("system.txt"); // creating file
 
-			InputStream is = s.getInputStream(); // getting chunks of file from server
+		Scanner scr2 = new Scanner(s.getInputStream());
+		String yn = scr2.next(); //checking is request approved or not
+		
+		if (yn.equals("y")) {
 
-			Scanner scr2 = new Scanner(s.getInputStream());
-			boolean yn = scr.hasNextBoolean();
+			if (answer.equals("y")) {
+				
 
-			if (yn) {
+				File requestedFile = new File("system.txt"); // creating file
+
+				InputStream is = s.getInputStream(); // getting chunks of file from server
+
 				try (FileOutputStream fos = new FileOutputStream(requestedFile)) {
 
 					byte[] buffer = new byte[4096];
@@ -137,7 +141,10 @@ public class Client1 {
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
-			}
+
+			} 
+		} else {
+			System.out.println("Request Denied !");
 		}
 		System.out.println();
 		System.out.println();
