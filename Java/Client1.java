@@ -149,9 +149,11 @@ public class Client1 {
 		}
 		System.out.println();
 		System.out.println();
+		System.out.println("End of code, thank you.");
+
+		
 		s.close();
 
-		System.out.println("End of code, thank you.");
 
 	}
 
