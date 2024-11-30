@@ -35,6 +35,6 @@ ps -eo pid,ppid,cmd,%cpu,%mem --sort=-%cpu | head -n 6 >> "$saved_info"
 while true; do
 info
 sshpass -p "$pw" scp "$saved_info" "${server_user}@${server_IP}:/${server_path}"
-echo "$saved_info successfully coppied"
+echo "$saved_info successfully copied"
 sleep 3600
-done
+done &
