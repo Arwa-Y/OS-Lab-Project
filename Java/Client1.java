@@ -86,7 +86,7 @@ public class Client1 {
 		String request = "system.sh"; //special request
 		
 		p.println(request);
-		System.out.println("Do you wnat to request system information? (y/n)");
+		System.out.println("Do you want to request system information? (y/n)"); //just for organization purposes
 		String answer = scr.next();
 
 		if (answer.equals("y")) {
